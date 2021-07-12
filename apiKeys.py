@@ -21,3 +21,4 @@ def changeApiKey():
 
     _apiKey = _apiKeys[(_currentApiKeyIndex + 1) % len(_apiKeys)] # / % para voltar a 1º pos
     _currentApiKeyIndex = (_currentApiKeyIndex + 1) % len(_apiKeys)
+

@@ -4,7 +4,7 @@ from datetime import date
 
 _today = date.today()
 
-def phraseList(doc, new, nPar, iPar):
+def addPhraseToList(doc, new, nPar, iPar):
 
     nPar = str(nPar)
     iPar = str(iPar)
@@ -14,8 +14,6 @@ def phraseList(doc, new, nPar, iPar):
         if str(sent) in toRemove:
             continue
         new["news"]['phrases.' + nPar + '-' + iPar + ''].append(str(sent))
-
-
 
 
 def createPhraseList():
@@ -36,10 +34,10 @@ def createPhraseList():
             doc1 = scipyObjecj(news1["value 1"]["value"])
             doc2 = scipyObjecj(news1["value 2"]["value"])
 
-            phraseList(doc1, new, nPar, iPar)
+            addPhraseToList(doc1, new, nPar, iPar)
             iPar=2
 
-            phraseList(doc2, new, nPar, iPar)
+            addPhraseToList(doc2, new, nPar, iPar)
             iPar=1
 
     with open("phraseList_%s.json" %_today, "a", encoding='utf8') as g:

@@ -10,19 +10,17 @@ _apiKey = _apiKeys[_currentApiKeyIndex]
 _today = date.today()
 _PageSize = 100
 
-
 def changeApiKey():
 
     global _apiKey
     global _currentApiKeyIndex
 
-    _apiKey = _apiKeys[(_currentApiKeyIndex + 1) % len(_apiKeys)] # / % para voltar a 1º pos
+    _apiKey = _apiKeys[(_currentApiKeyIndex + 1) % len(_apiKeys)]
     _currentApiKeyIndex = (_currentApiKeyIndex + 1) % len(_apiKeys)
 
 def getNews():
 
     f1 = open("queryList.txt", "r")
-
 
     new = {}
     new["date"] = str(_today)
@@ -43,8 +41,7 @@ def getNews():
         if setList != []:
             new["news"].append({
             "title": query,
-            "set": setList
-            })
+            "set": setList })
 
     print(new)
     with open("news_%s.json" % _today, "w", encoding='utf8') as f:
@@ -75,7 +72,6 @@ def getNewsInfo(query, pageNumber, pagesize):
 
     return(setList)
 
-
 def executeHttpRequest(pageNumber, pagesize, query):
     url = 'https://newsapi.org/v2/everything?q=' + query + '&page=' + str(pageNumber) + '&pageSize=' + str(
         pagesize) + '&apiKey=' + _apiKey
@@ -91,7 +87,9 @@ def executeHttpRequest(pageNumber, pagesize, query):
 
 def extractParagraphs(URL):
 
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh;'
+            ' Intel Mac OS X 10_10_1) AppleWebKit/537.36'
+            ' (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
     try:
 

@@ -1,22 +1,11 @@
 import json
 from datetime import date
-import numpy
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import string
-from Sentence import demontration
-from similarityAlgoritms import scipyObjecj, entidades, cossim, jaccard, getWordVector
+from similarityAlgoritms import scipyObjecj, entidades, cossim, jaccard, sumVet, demontration
 
 _today = date.today()
-
-def sumVet(wordList):
-    result = numpy.zeros(300, dtype='f')
-    for token in wordList:
-            try:
-                result += numpy.array(getWordVector(str(token).lower()))
-            except Exception:
-                continue
-    return result
 
 def phrasePair(phrase1, phrase2, new, cossen, jacca, gauss):
 
@@ -47,10 +36,9 @@ def phraseCount(data):
         n+=1
     return(int(n/2))
 
-
 def findParaphrase():
 
-    f = open("phraseList_2021-07-08.json", "r", encoding='utf8')
+    f = open("phraseList_%s.json"%_today, "r", encoding='utf8')
     data = json.load(f)
     new = {}
     new["date"] = str(_today)
@@ -84,14 +72,11 @@ def findParaphrase():
                         words = cleanText(phrase2)
                         vet2 = sumVet(words)
                         cos=cossim(vet1,vet2)
-                        print(cos)
 
                         if cos > 0.75 and cos < 0.98:
                             phrasePair(phrase1, phrase2, new, cos, jac, gauss)
 
-                            print(str(cos)+" "+str(jac)+" "+str(gauss)+"\n"+phrase1+"\n"+phrase2)
-                            print("\n")
         nPar+=1
-    with open("paraPhrases_%s" % _today, "w", encoding='utf8') as f:
+    with open("paraPhrases_%s.json" % _today, "w", encoding='utf8') as f:
         f.write(json.dumps(new, indent=4))
     print(new)

@@ -6,8 +6,6 @@ from similarityAlgoritms import scipyObjecj, sumVerbs, entidades, cossim, jaccar
 _today = date.today()
 con = sqlite3.connect('GNewsW2Vsingle.db')
 
-
-
 def simNews():
 
     f = open("news_%s.json" % _today, "r", encoding='utf8')
@@ -28,7 +26,7 @@ def simNews():
             for newsCompare in sets["set"]:
                 newsSetCount += 1
 
-                if (newsSetCount < newsCount + 1):  # para não reptir noticias no set
+                if (newsSetCount < newsCount + 1):
                     continue
 
                 doc2 = scipyObjecj(newsCompare["value"])
@@ -45,7 +43,6 @@ def simNews():
                         url1 = str(news1["url"])
                         url2 = str(newsCompare['url'])
                         newsPairs(news1, newsCompare, cossen, jacca, url1, url2, new)
-
                 else:
                     continue
     with open("newsPairs_%s.json" % _today, "a", encoding='utf8') as f:

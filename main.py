@@ -3,21 +3,23 @@ from getNewsFromUrl import getNews
 from findParalelNews import simNews
 from findParaphrases import findParaphrase
 from separatePhrases import createPhraseList
-import schedule
-import time
+
 
 def main():
-#stripTopHeadlinesToQ()
-    #getNews()
-    #simNews()
-    #createPhraseList()
+    stripTopHeadlinesToQ()
+    print("Lista de queries criada")
+    getNews()
+    print("Noticias recolhidas")
+    simNews()
+    print("Notícias paralelas guardadas")
+    createPhraseList()
+    print("Lista de frases criada")
     findParaphrase()
+    print("Paráfrases guardadas")
 
 if __name__ == "__main__":
-    schedule.every(24).hour.do(main)
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    print("Started")
+    main()
 
 
 

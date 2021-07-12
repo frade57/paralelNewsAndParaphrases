@@ -36,7 +36,7 @@ def cleanQuerylist(tokens):
 
 def stripTopHeadlinesToQ():
 
-    f = open("queryList.txt", "w")
+    f = open('queryList.txt', "w")
 
     url = ('https://newsapi.org/v2/top-headlines?'
             'country=us&'
@@ -47,9 +47,7 @@ def stripTopHeadlinesToQ():
            )
 
     response = requests.get(url)
-    JsonInfo = response.json()
-    Json_str = json.dumps(JsonInfo)
-    JsonLoad = json.loads(Json_str)
+    JsonLoad = json.loads(response.text)
 
     for article in JsonLoad['articles']:
 
@@ -64,8 +62,8 @@ def stripTopHeadlinesToQ():
 
         listaQ = '+AND+'.join(words)
 
-
         f.write(listaQ+'\n')
     f.close()
 
     removeEmptyLines('queryList.txt')
+

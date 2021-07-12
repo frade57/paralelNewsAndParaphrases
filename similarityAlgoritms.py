@@ -5,10 +5,18 @@ import sqlite3
 from math import exp, log
 from nltk.tokenize import word_tokenize
 
-
 con = sqlite3.connect('GNewsW2Vsingle.db')
 w2v= {}
 neutral= [0 for i in range(300)]
+
+def sumVet(wordList):
+    result = numpy.zeros(300, dtype='f')
+    for token in wordList:
+            try:
+                result += numpy.array(getWordVector(str(token).lower()))
+            except Exception:
+                continue
+    return result
 
 def scipyObjecj(noticia):
     nlp = spacy.load("en_core_web_sm")
@@ -22,12 +30,10 @@ def getWordVector(word):
     con.commit()
     return (eval(result))
 
-
 def line2WVector(line):
     vs= line.split()
     v= [float(x) for x in vs[1:]]
     return vs[0], v
-
 
 def cossim(v1,v2): return 1 - spatial.distance.cosine(v1, v2)
 
@@ -41,17 +47,13 @@ def sumVerbs(doc):
                 continue
     return result
 
-
 def entidades(doc): return set([(e.text) for e in doc.ents])
 
 def jaccard(a, b):
     c = a.intersection(b)
     return float(len(c)) / (len(a) + len(b) - len(c))
 
-
-
 def sqr(x:float) -> float: return x*x
-
 
 def tokenize(s, lower=True):
     if lower:
@@ -66,7 +68,6 @@ def tokenize(s, lower=True):
         else:
             nalpha += 1
     return l, n, nalpha
-
 
 def computeConnections(sa, sb):
     la, nla, na = tokenize(sa)
@@ -85,7 +86,6 @@ def computeConnections(sa, sb):
 
     return lista, na, nb
 
-
 def simGaussEntropy(sa, sb) -> float:
     conections, na, nb = computeConnections(sa,sb)
     n = len(conections)
@@ -100,7 +100,4 @@ def simGaussEntropy(sa, sb) -> float:
     y = 0.4*f + 0.6*g
     return y
 
-def demontration(sa,sb): #definir gauss
-    gauss=simGaussEntropy(sa,sb)
-
-    return (gauss) #return simGausEntripy(sa,sb)
+def demontration(sa,sb): return simGaussEntropy(sa,sb)
