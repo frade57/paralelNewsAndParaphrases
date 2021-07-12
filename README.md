@@ -11,7 +11,8 @@ json: pip install jsonlib
 nltk: pip install nltk
 
 spacy: pip install -U pip setuptools wheel // pip install -U spacy // python -m spacy download en_core_web_sm
-	se houver dificuldades: https://spacy.io/usage
+
+se houver dificuldades: https://spacy.io/usage
 
 BeautifulSoup: pip install beautifulsoup4
 
